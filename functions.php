@@ -70,3 +70,22 @@ function how_many_posts_display_in_feed($query) {
     $n = 15;
     add_filter( 'post_limits', create_function('', "return 'LIMIT $n';") );
 }
+
+
+/* Функция для обновления поля ACF */
+function update_acf_field(){
+	$args = array(
+	    'post_type' => 'product', // тип поста
+	    'post_status' => 'publish',
+	    'posts_per_page' => -1
+	);
+	$posts = new WP_Query( $args );
+	if ( $posts -> have_posts() ) {
+	    while ( $posts -> have_posts() ) {
+	    	$posts->the_post();
+	    	$post_id = get_the_ID();
+	        update_post_meta( $post_id, 'field_name', 'field_new_value', 'field_old_value');
+	    }
+	}
+	wp_reset_query();
+}
