@@ -1,0 +1,6 @@
+/*увеличение загружаемого файла*/
+add_filter( 'upload_size_limit', 'PBP_increase_upload' );
+function PBP_increase_upload( $bytes )
+{
+ return 15728640;
+}
