@@ -1,0 +1,7 @@
+/*отключение стилей contact-form-7*/
+function remove_styles () {
+    wp_deregister_style ('fancybox');
+    wp_deregister_style ('contact-form-7');
+    wp_deregister_style ('etc');
+}
+add_action ('wp_print_styles','remove_styles',100);
