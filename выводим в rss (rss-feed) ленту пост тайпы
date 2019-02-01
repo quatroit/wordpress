@@ -1,0 +1,23 @@
+/*выводим в rss (фиды) ленту пост тайпы('catalog'-это название пост тайпа) )*/
+add_filter('pre_get_posts', 'add_new_post_types_to_feed');
+function add_new_post_types_to_feed( $query ) {
+    // Выходим если это запрос не фидов
+    if( ! $query->is_feed || ! $query->is_main_query() )
+        return;
+
+    $query->set( 'post_type', array('post', 'catalog') );
+}
+
+/*кол-во записей в рсс*/
+add_filter( 'pre_get_posts', 'how_many_posts_display_in_feed' );
+function how_many_posts_display_in_feed($query) {
+    if( ! $query->is_feed || ! $query->is_main_query() )
+        return;
+
+    // этот вариант не работает
+    // $query->set( 'posts_per_page', 11 );
+
+    // Сколько записей показывать
+    $n = 15;
+    add_filter( 'post_limits', create_function('', "return 'LIMIT $n';") );
+}
