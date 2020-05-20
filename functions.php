@@ -89,3 +89,15 @@ function update_acf_field(){
 	}
 	wp_reset_query();
 }
+
+
+// Функция добавления новых полей в профиль пользователя
+add_filter('user_contactmethods', 'my_user_contactmethods');
+ 
+function my_user_contactmethods($user_contactmethods){
+ 
+  $user_contactmethods['twitter'] = 'Twitter Username';
+  $user_contactmethods['facebook'] = 'Facebook Username';
+ 
+  return $user_contactmethods;
+}
